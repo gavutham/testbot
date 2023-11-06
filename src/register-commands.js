@@ -10,6 +10,24 @@ const commands = [
         name: "first-number",
         description: "First number to be added.",
         type: ApplicationCommandOptionType.Number,
+        choices: [
+          {
+            name: "One",
+            value: 1,
+          },
+          {
+            name: "Tow",
+            value: 2,
+          },
+          {
+            name: "Three",
+            value: 3,
+          },
+          {
+            name: "Four",
+            value: 4,
+          },
+        ],
         required: true,
       },
       {
@@ -25,7 +43,7 @@ const commands = [
 const rest = new REST({ version: "10" }).setToken(process.env.LOGIN_TOKEN);
 
 (async () => {
-  console.log("Registering Slash Commands");
+  console.log("Registering Slash Commands... ^-^");
   try {
     await rest.put(
       Routes.applicationGuildCommands(
@@ -35,7 +53,7 @@ const rest = new REST({ version: "10" }).setToken(process.env.LOGIN_TOKEN);
       { body: commands }
     );
 
-    console.log("Done registering Slash Commands");
+    console.log("Slash Commands registered successfully! :-)");
   } catch (err) {
     console.log(`Error Occurred ${err}`);
   }
