@@ -22,45 +22,32 @@ client.on("messageCreate", (message) => {
   }
 });
 
-client.on("interactionCreate", (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+client.on("interactionCreate", async (interaction) => {
+  try {
+    if (!interaction.isButton()) return;
+    await interaction.deferReply({ ephemeral: true });
 
-  if (interaction.commandName === "embed") {
-    const embed = new EmbedBuilder()
-      .setTitle("Embed Title")
-      .setDescription("Embed Description")
-      .setColor("Random")
-      .addFields([
-        {
-          name: "Field Title",
-          value: "Some value",
-          inline: true,
-        },
-        {
-          name: "Field Title",
-          value: "Some value",
-          inline: true,
-        },
-      ])
-      .setURL("https://github.com/gavutham")
-      .setThumbnail(
-        "https://www.techopedia.com/wp-content/uploads/2023/03/6e13a6b3-28b6-454a-bef3-92d3d5529007.jpeg"
-      )
-      .setImage(
-        "https://www.techopedia.com/wp-content/uploads/2023/03/6e13a6b3-28b6-454a-bef3-92d3d5529007.jpeg"
-      )
-      .setTimestamp(new Date())
-      .setFooter({
-        text: "Footer text",
-        iconURL:
-          "https://www.techopedia.com/wp-content/uploads/2023/03/6e13a6b3-28b6-454a-bef3-92d3d5529007.jpeg",
-      })
-      .setAuthor({
-        name: "Test Bot",
-        iconURL:
-          "https://www.techopedia.com/wp-content/uploads/2023/03/6e13a6b3-28b6-454a-bef3-92d3d5529007.jpeg",
+    const role = interaction.guild.roles.cache.get(interaction.customId);
+
+    if (!role) {
+      interaction.editReply({
+        content: "The selected role does not exist.",
       });
+      return;
+    }
 
-    interaction.reply({ embeds: [embed] });
+    const hasRole = interaction.member.roles.cache.has(role.id);
+
+    if (hasRole) {
+      await interaction.member.roles.remove(role.id);
+      await interaction.editReply(`The role ${role} has been removed`);
+      return;
+    } else {
+      await interaction.member.roles.add(role.id);
+      await interaction.editReply(`The role ${role} has been added`);
+    }
+  } catch (error) {
+    console.log(error);
+    return;
   }
 });
