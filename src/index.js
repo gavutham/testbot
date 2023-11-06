@@ -21,3 +21,11 @@ client.on("messageCreate", (message) => {
     message.reply("Pong!");
   }
 });
+
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === "hey") {
+    interaction.reply("Hey there!");
+  }
+});
