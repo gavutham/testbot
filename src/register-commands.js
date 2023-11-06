@@ -3,40 +3,8 @@ const { REST, Routes, ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
   {
-    name: "add",
-    description: "Just add two numbers.",
-    options: [
-      {
-        name: "first-number",
-        description: "First number to be added.",
-        type: ApplicationCommandOptionType.Number,
-        choices: [
-          {
-            name: "One",
-            value: 1,
-          },
-          {
-            name: "Tow",
-            value: 2,
-          },
-          {
-            name: "Three",
-            value: 3,
-          },
-          {
-            name: "Four",
-            value: 4,
-          },
-        ],
-        required: true,
-      },
-      {
-        name: "second-number",
-        description: "Second number to be added.",
-        type: ApplicationCommandOptionType.Number,
-        required: true,
-      },
-    ],
+    name: "embed",
+    description: "Just sends an embed.",
   },
 ];
 
