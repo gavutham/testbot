@@ -28,4 +28,11 @@ client.on("interactionCreate", (interaction) => {
   if (interaction.commandName === "hey") {
     interaction.reply("Hey there!");
   }
+
+  if (interaction.commandName === "add") {
+    const a = interaction.options.get("first-number").value;
+    const b = interaction.options.get("second-number").value;
+
+    interaction.reply(`For your stupid brain, the sum is ${a + b} 😆`);
+  }
 });

@@ -1,10 +1,24 @@
 require("dotenv").config();
-const { REST, Routes } = require("discord.js");
+const { REST, Routes, ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
   {
-    name: "hey",
-    description: "Replies with hey!",
+    name: "add",
+    description: "Just add two numbers.",
+    options: [
+      {
+        name: "first-number",
+        description: "First number to be added.",
+        type: ApplicationCommandOptionType.Number,
+        required: true,
+      },
+      {
+        name: "second-number",
+        description: "Second number to be added.",
+        type: ApplicationCommandOptionType.Number,
+        required: true,
+      },
+    ],
   },
 ];
 
